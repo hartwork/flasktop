@@ -72,7 +72,7 @@ def _index():
     return dedent("""
         <html>
             <head>
-                <title>AjaxTop</title>
+                <title>FlaskTop</title>
 
                 <link rel="stylesheet" type="text/css"
                     href="https://cdn.datatables.net/v/dt/jq-2.2.3/dt-1.10.12/datatables.min.css"/>
