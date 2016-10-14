@@ -120,10 +120,14 @@ def _index():
                         }
 
                         var formatFloat = function ( data, type, row ) {
+                            if (data == 0) {
+                                return '';
+                            }
+
                             if (data > 0) {
                                 data = Math.max(data, 0.01)
                             }
-                            return data.toFixed(2)
+                            return data.toFixed(2).replace( /^0/, '' )
                         }
 
                         var formatDuration = function ( data, type, row ) {
