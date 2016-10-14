@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#! /usr/bin/env python2
 # "top in the browser"
 # Makes use of Flask and jQuery DataTables
 #
