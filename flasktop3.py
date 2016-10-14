@@ -39,12 +39,6 @@ def _data():
             cpu_time_user, cpu_time_system, _, _ = p.cpu_times()
             mi = p.memory_info()
 
-            try:
-                exe = p.exe()
-                num_fds = p.num_fds()
-            except psutil.AccessDenied:
-                continue
-
             cpu_percent = p.cpu_percent()
             cpu_percent_slow = (cpu_percent + _cpu_percent_prev.get(p.pid, cpu_percent)) / 2
             _cpu_percent_prev[p.pid] = cpu_percent_slow  # TODO: clean cache
@@ -52,10 +46,10 @@ def _data():
             d = {
                 'pid': p.pid,
                 'name': p.name(),
-                'exe': exe,
+                'exe': p.exe(),
                 'cmdline': ' '.join(p.cmdline()),
                 'username': p.username(),
-                'num_fds': num_fds,
+                'num_fds': p.num_fds(),
                 'num_threads': p.num_threads(),
                 'cpu_time_user': cpu_time_user,
                 'cpu_time_system': cpu_time_system,
@@ -65,7 +59,7 @@ def _data():
                 'cpu_percent_slow': cpu_percent_slow,
                 'status': _STATUS_HUMAN.get(p.status()),
             }
-        except psutil.NoSuchProcess:
+        except (psutil.AccessDenied, psutil.NoSuchProcess):
             continue
 
         rows.append(d)
