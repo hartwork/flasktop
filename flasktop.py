@@ -36,7 +36,7 @@ def _data():
     rows = []
     for p in psutil.process_iter():
         try:
-            cpu_time_user, cpu_time_system, _, _ = p.cpu_times()
+            cpu_time_user, cpu_time_system = p.cpu_times()[:2]
             mi = p.memory_info()
 
             cpu_percent = p.cpu_percent()
